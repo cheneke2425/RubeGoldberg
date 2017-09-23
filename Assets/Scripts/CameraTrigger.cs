@@ -24,11 +24,11 @@ public class CameraTrigger : MonoBehaviour {
 		//override the values in CamControll
 		if (moveOverride != null)
 		{
-			camControl.moveToTarget = moveOverride;
+			
 		}
 		if (lookOverride != null)
 		{
-			camControl.lookAtTarget = lookOverride;
+			
 		}
 	}
 
