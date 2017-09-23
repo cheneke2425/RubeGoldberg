@@ -6,7 +6,7 @@ public class GlowEffect : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		//everything starts with meshrenderer disabled
 		GetComponent<MeshRenderer>().enabled = false;
 		
 	}
@@ -14,6 +14,7 @@ public class GlowEffect : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// the ball's meshrenderer is enabled as soon as the ball starts moving, disabled when the ball stops
 		if (isMoving())
 		{
 			if (GetComponent<MeshRenderer>().enabled == false)
@@ -30,37 +31,29 @@ public class GlowEffect : MonoBehaviour {
 		
 	}
 
-	void OnCollisionEnter(Collision collision)
+	// if a moving ball is touching an object, the object's mesh renderer is enabled
+	void OnCollisionStay(Collision collision)
 	{
-		Debug.Log("collided");
-		//when ball collides with object, object renderer is enabled
-
+		// only if the ball is moving, the object then can glow
 		if (isMoving())
 		{
-			if(!collision.gameObject.GetComponent<MeshRenderer>().enabled)
-			{
-				collision.gameObject.GetComponent<MeshRenderer>().enabled = true;
-			}
+			collision.gameObject.GetComponent<MeshRenderer>().enabled = true;
+		}
+		else {
+			collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
 		}
 
 	}
 
 	void OnCollisionExit(Collision collision)
 	{
-		Debug.Log("collision ended");
-		// when collision ends, renderer is disabled
-		if (isMoving())
-		{
-			if (collision.gameObject.GetComponent<MeshRenderer>().enabled)
-			{
-				collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
-			}
-		}
-
+		StartCoroutine(sinceCollisionEnded(1.5f, collision));
 	}
 
+	// check if the ball is moving
 	bool isMoving()
 	{
+		// if the velocity of the ball is zero, the ball is not moving, return false, else return true
 		if (GetComponent<Rigidbody>().velocity == Vector3.zero)
 		{
 			return false;
@@ -70,4 +63,11 @@ public class GlowEffect : MonoBehaviour {
 		}
 	}
 
+	// wait for seconds after collision ended and then disables meshrenderer
+	IEnumerator sinceCollisionEnded(float sec, Collision collisionInfo)
+	{
+		yield return new WaitForSeconds(sec);
+
+		collisionInfo.gameObject.GetComponent<MeshRenderer>().enabled = false;
+	}
 }
