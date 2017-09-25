@@ -277,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstTarget: {fileID: 1067874149}
   secondTarget: {fileID: 1011760769}
+  thirdTarget: {fileID: 1309661142}
   dampTime: 0.2
 --- !u!114 &522893311
 MonoBehaviour:
