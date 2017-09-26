@@ -47,7 +47,7 @@ public class GlowEffect : MonoBehaviour {
 
 	void OnCollisionExit(Collision collision)
 	{
-		StartCoroutine(sinceCollisionEnded(1.5f, collision));
+		StartCoroutine(sinceCollisionEnded(2.5f, collision));
 	}
 
 	// check if the ball is moving
