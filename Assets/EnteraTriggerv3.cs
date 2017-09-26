@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnteraTriggerv3 : MonoBehaviour {
 
+	public GameObject End;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -24,6 +26,11 @@ public class EnteraTriggerv3 : MonoBehaviour {
 	IEnumerator sinceEnterTrigger(float sec)
 	{
 		yield return new WaitForSeconds(sec);
-		gameObject.GetComponent<Rigidbody>().isKinematic = true;
+		Finish();
+	}
+
+	void Finish()
+	{
+		End.GetComponent<MeshRenderer>().enabled = true;
 	}
 }
